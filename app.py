@@ -3,6 +3,7 @@ from extensions import db, migrate
 from flask import Flask, redirect, render_template, request, flash, session, url_for
 from helpers import login_required
 from models import User, Dog, Discipline, Workout, WorkoutGroup, Breed
+import os
 from sqlalchemy import or_
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -11,7 +12,7 @@ app = Flask(__name__)
 # Configure the SQLite database, relative to the app instance folder
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cc.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "dev-secret-key"
+app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
 # initialize the app with the extension
 # migrate models into db
 db.init_app(app)
