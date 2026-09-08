@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dodaj trening
+{% endblock %}
+
+{% block main %}
+
+<h1>Dodaj trening</h1>
+
+    <form action="/workouts/add" method="post">
+        <div>
+            <label for="start_datetime">Czas rozpoczęcia</label>
+            <input 
+                type="datetime-local" 
+                id="start_datetime" 
+                name="start_datetime"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="duration_minutes">Czas trwania</label>
+            <input 
+                type="number" 
+                id="duration_minutes" 
+                name="duration_minutes"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="disc_id">Dyscyplina</label>
+            <select
+                id="disc_id"
+                name="disc_id"
+                required
+            >
+
+            <option value="" selected>- Wybierz dyscyplinę -</option>
+            {% for discipline in disciplines %}
+                <option value="{{ discipline.disc_id }}">{{ discipline.disc_name }}</option>
+            {% endfor %}
+
+            </select>
+        </div>
+
+        <div>
+            <label for="dog_ids">Psy</label>
+            <br>
+            {% for dog in dogs %}
+                <input 
+                    type="checkbox" 
+                    id="dog_ids_{{ dog.dog_id }}" 
+                    name="dog_ids"
+                    value="{{ dog.dog_id }}"
+                >
+
+                <label>{{ dog.dog_name_short }}</label>
+                <br>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="focus">Cel</label>
+            <input
+                autocomplete = "off"
+                type="text" 
+                id="focus" 
+                name="focus"
+            >
+        </div>
+
+        <div>
+            <label for="status">Status</label>
+            <select
+                id="status"
+                name="status"
+                required
+            >
+
+            <option value="" selected>- Wybierz status -</option>
+            <option value="0">Zaplanowany</option>
+            <option value="1">Ukończony</option>
+            <option value="2">Odwołany</option>
+
+            </select>
+        </div>
+
+        <div>
+            <label for="score">Wynik</label>
+            <input 
+                type="text" 
+                id="score" 
+                name="score"
+            >
+        </div>
+
+        <div>
+            <textarea name="note" placeholder="Notatka"></textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Dodaj trening</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Moje treningi
+{% endblock %}
+
+{% block main %}
+
+<h1>Moje treningi</h1>
+
+     <div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                Ostatnie treningi
+                <br>
+                {% for workout in workouts %}
+                    {% if workout.wout_start_datetime < date_now %}
+                        {{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}
+                        {{ disc_dict[workout.wout_disc_id] }}
+                        {{ dogs_dict[workout.wout_dog_id] }}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                Następne treningi
+                <br>
+                {% for workout in workouts %}
+                    {% if workout.wout_start_datetime > date_now %}
+                        {{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}
+                        {{ disc_dict[workout.wout_disc_id] }}
+                        {{ dogs_dict[workout.wout_dog_id] }}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <form action="/workouts/add" method="get">
+            <button class="btn btn-primary" type="submit">Zaplanuj nowy trening</button>
+        </form>
+    </div>
+
+    <div id="calendar">
+    </div>
+
+    <div>
+        <table class="workouts-table">
+                <tr>
+                    <th>Czas rozpoczęcia</th>
+                    <th>Czas zakończenia</th>
+                    <th>Czas trwania</th>
+                    <th>Dyscyplina</th>
+                    <th>Psy</th>
+                    <th>Cel</th>
+                    <th>Status</th>
+                    <th>Wynik</th>
+                    <th>Opcje</th>
+                </tr>
+        {% for workout in workouts %}
+            {% if workout.wout_active %}
+                <tr class="clickable-row" data-href="{{ url_for('workout', wout_id=workout.wout_id) }}">
+                    <td>{{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
+                    <td>{{ workout.wout_end_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
+                    <td>{{ workout.wout_duration_minutes }}</td>
+                    <td>{{ disc_dict[workout.wout_disc_id] }}</td>
+                    <td>{{ dogs_dict[workout.wout_dog_id] }}</td>
+                    <td>{{ workout.wout_focus }}</td>
+                    <td>{{ status_dict[workout.wout_status] }}</td>
+                    <td>
+                        {% if workout.wout_score %}
+                            {{ workout.wout_score }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="workout-actions">
+
+                            <a
+                                href="{{ url_for('edit_workout', wout_id=workout.wout_id) }}"
+                                class="icon-button action-button"
+                                title="Edytuj"
+                            >
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                            {% if workout.wout_status == 0 %}
+                                <form
+                                    action="{{ url_for('complete_workout', wout_id=workout.wout_id) }}"
+                                    method="post"
+                                    class="inline-form action-button"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="icon-button"
+                                        title="Ukończ trening"
+                                    >
+                                        <i class="bi bi-check-lg"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+
+                            {% if workout.wout_status == 0 %}
+                                <form
+                                    action="{{ url_for('cancel_workout', wout_id=workout.wout_id) }}"
+                                    method="post"
+                                    class="inline-form action-button"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="icon-button"
+                                        title="Anuluj trening"
+                                    >
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+
+                            <form
+                                    action="{{ url_for('delete_workout', wout_id=workout.wout_id) }}"
+                                    method="post"
+                                    class="inline-form action-button"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="icon-button"
+                                        title="Usuń trening"
+                                    >
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script>const calendarEvents = {{ calendar_events | tojson }};</script>
+    
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            firstDay: 1,
+            locale: "pl",
+            height: "auto",
+            showNonCurrentDates: true,
+            fixedWeekCount: false,
+            headerToolbar: {
+                left: "",
+                center: "title",
+                right: ""
+            },
+            titleFormat: {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            },
+            footerToolbar: {
+                left: "prev next",
+                center: "",
+                right: ""
+            },
+
+            events: calendarEvents
+        });
+        calendar.render();
+      });
+
+    </script>
+
+    <script>
+    document.querySelectorAll(".clickable-row").forEach(row => {
+        row.addEventListener("click", () => {
+            window.location.href = row.dataset.href;
+        });
+    });
+    </script>
+
+{% endblock %}

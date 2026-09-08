@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dodaj psa
+{% endblock %}
+
+{% block main %}
+
+<h1>Dodaj psa</h1>
+
+    <form action="/dogs/add" method="post">
+        <div>
+            <label for="name_full">Imię - pełne</label>
+            <input
+                autocomplete = "off"
+                type="text"
+                id="name_full" 
+                name="name_full"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="name_short">Imię - skrócone</label>
+            <input
+                autocomplete = "off"
+                type="text" 
+                id="name_short" 
+                name="name_short"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="breed_id">Rasa</label>
+            <select
+                id="breed_id"
+                name="breed_id"
+            >
+
+            <option value="" select>- Wybierz rasę -</option>
+            {% for breed in breeds %}
+                <option value="{{ breed.breed_id }}">{{ breed.breed_name }}</option>
+            {% endfor %}
+
+            </select>
+        </div>
+
+        <div>
+            <label for="birth_date">Data urodzenia</label>
+            <input 
+                type="date" 
+                id="birth_date" 
+                name="birth_date"
+            >
+        </div>
+
+        <div>
+            <textarea name="note" placeholder="Notatka"></textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Dodaj psa</button>
+    </form>
+
+{% endblock %}

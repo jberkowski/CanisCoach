@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edytuj trening
+{% endblock %}
+
+{% block main %}
+
+<h1>Edytuj trening</h1>
+
+    <form action="/workouts/workout/{{ workout.wout_id }}/edit" method="post">
+        <div>
+            <label for="start_datetime">Czas rozpoczęcia</label>
+            <input 
+                value="{{ workout.wout_start_datetime.strftime('%Y-%m-%dT%H:%M') }}"
+                type="datetime-local" 
+                id="start_datetime" 
+                name="start_datetime"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="duration_minutes">Czas trwania</label>
+            <input 
+                value="{{ workout.wout_duration_minutes }}"
+                type="number" 
+                id="duration_minutes" 
+                name="duration_minutes"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="disc_id">Dyscyplina</label>
+            <select name="disc_id" id="disc_id">
+                {% for discipline in disciplines %}
+                    <option
+                        value="{{ discipline.disc_id }}"
+                        {% if discipline.disc_id == workout.wout_disc_id %}selected{% endif %}
+                    >
+                        {{ discipline.disc_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="dog_name">Pies</label>
+
+            {% for dog in dogs %}
+                {% if dog.dog_id == workout.wout_dog_id %}
+                    {{ dog.dog_name_short }}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="focus">Cel</label>
+            <input
+                value="{{ workout.wout_focus }}"
+                autocomplete="off"
+                type="text" 
+                id="focus" 
+                name="focus"
+            >
+        </div>
+
+        <div>
+            <label for="status">Status</label>
+            <select
+                id="status"
+                name="status"
+                required
+            >
+
+            <option value="">- Wybierz status -</option>
+            <option value="0" {% if workout.wout_status == 0 %}selected{% endif %}>Zaplanowany</option>
+            <option value="1" {% if workout.wout_status == 1 %}selected{% endif %}>Ukończony</option>
+            <option value="2" {% if workout.wout_status == 2 %}selected{% endif %}>Odwołany</option>
+
+            </select>
+        </div>
+
+        <div>
+            <label for="score">Wynik</label>
+            <input 
+                value="{{ workout.wout_score or '' }}"
+                type="text" 
+                id="score" 
+                name="score"
+            >
+        </div>
+
+        <div>
+            <textarea name="note">{{ workout.wout_note or '' }}</textarea>
+        </div>
+
+
+        <button class="btn btn-primary" type="submit">Zapisz trening</button>
+    </form>
+
+{% endblock %}

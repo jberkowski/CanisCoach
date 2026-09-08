@@ -1,0 +1,118 @@
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+body
+{
+    padding-top: 70px;
+}
+
+
+textarea {
+    min-height: 220px;
+    min-width: 500px;
+    resize: none;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+
+.workouts-table th:last-child,
+.workouts-table td:last-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+
+th {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: bold;
+}
+
+
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+
+.clickable-row {
+    cursor: pointer;
+}
+
+
+.clickable-row:hover {
+    background-color: #f2f2f2;
+}
+
+
+caption {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+.fc a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.fc .fc-col-header-cell-cushion {
+    color: #1F2933;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+.fc .fc-daygrid-day-number {
+    color: #1F2933;
+    text-decoration: none;
+}
+
+
+.workout-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.workout-actions form {
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+}
+
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    padding: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.icon-button:hover {
+    opacity: 0.7;
+}

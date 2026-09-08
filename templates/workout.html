@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Trening {{ disc_dict[workout.wout_disc_id]}}
+{% endblock %}
+
+{% block main %}
+    <h1>Trening {{ disc_dict[workout.wout_disc_id]}} z
+     {{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}</h1>
+{% endblock %}

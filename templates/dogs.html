@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Moje psy
+{% endblock %}
+
+{% block main %}
+
+<h1>Moje psy</h1>
+
+    <div>
+        {% if user_dogs %}
+            <table>
+                <tr>
+                    <th>Imię pełne</th>
+                    <th>Imię skrócone</th>
+                    <th>Rasa</th>
+                    <th>Opcje</th>
+                </tr>
+            {% for dog in user_dogs %}
+                {% if dog.dog_active %}
+               <tr class="clickable-row" data-href="{{ url_for('dog', dog_id=dog.dog_id) }}">
+                    <td>{{ dog.dog_name_full }}</td>
+                    <td>{{ dog.dog_name_short }}</td>
+                    <td>{{ breed_dict[dog.dog_breed_id]}}</td>
+                    <td>
+                        <div class="workout-actions">
+
+                            <a
+                                href="{{ url_for('edit_dog', dog_id=dog.dog_id) }}"
+                                class="icon-button action-button"
+                                title="Edytuj"
+                            >
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                            <form
+                                    action="{{ url_for('delete_dog', dog_id=dog.dog_id) }}"
+                                    method="post"
+                                    class="inline-form action-button"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="icon-button"
+                                        title="Usuń psa"
+                                    >
+                                        <i class="bi bi-x"></i>
+                                    </button>
+                                </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+        {% else %}
+            Jeszcze nikt tu nie biega!
+        {% endif %}
+    </div>
+
+    <div>
+        <form action="/dogs/add" method="get">
+            <button class="btn btn-primary" type="submit">Dodaj psa</button>
+        </form>
+    </div>
+
+
+    <script>
+    document.querySelectorAll(".clickable-row").forEach(row => {
+        row.addEventListener("click", () => {
+            window.location.href = row.dataset.href;
+        });
+    });
+    </script>
+
+
+{% endblock %}

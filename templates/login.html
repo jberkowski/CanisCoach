@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Logowanie
+{% endblock %}
+
+{% block main %}
+
+<h1>Logowanie</h1>
+
+    <form action="/login" method="post">
+        <div class="mb-3">
+            <input 
+                autofocus class="form-control mx-auto w-auto"
+                name="email"
+                placeholder="Email"
+                type="email"
+                autocomplete="username"
+            >
+        </div>
+
+        <div class="mb-3">
+            <input
+                class="form-control mx-auto w-auto"
+                name="password"
+                id="password"
+                placeholder="Password"
+                type="password"
+                autocomplete="current-password"
+            >
+
+            <input type="checkbox" onclick="showPassword('password')">Pokaż hasło
+        </div>
+        <button class="btn btn-primary" type="submit">Zaloguj</button>
+    </form>
+{% endblock %}
+
+
+{% block scripts %}
+
+    <script>
+        function showPassword(id) {
+            var x = document.getElementById(id);
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            }
+    </script>
+
+{% endblock %}

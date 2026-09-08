@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ dog.dog_name_short }}
+{% endblock %}
+
+{% block main %}
+
+<h1>{{ dog.dog_name_full }}</h1>
+{% if dog.dog_name_full != dog.dog_name_short %}
+    <h2>{{ dog.dog_name_short }}</h2>
+{% endif %}
+
+{% endblock %}

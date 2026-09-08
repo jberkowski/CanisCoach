@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edytuj psa
+{% endblock %}
+
+{% block main %}
+
+<h1>Edytuj psa</h1>
+
+    <form action="/dogs/dog/{{ dog.dog_id }}/edit" method="post">
+        <div>
+            <label for="name_full">Imię - pełne</label>
+            <input
+                value="{{ dog.dog_name_full }}"
+                type="text"
+                id="name_full" 
+                name="name_full"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="name_short">Imię - skrócone</label>
+            <input
+                value="{{ dog.dog_name_short }}"
+                type="text" 
+                id="name_short" 
+                name="name_short"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="breed_id">Rasa</label>
+            <select
+                id="breed_id"
+                name="breed_id"
+            >
+
+            <option value="" select>- Wybierz rasę -</option>
+            {% for breed in breeds %}
+                <option 
+                    value="{{ breed.breed_id }}"
+                    {% if breed.breed_id == dog.dog_breed_id %}selected{% endif %}
+                >
+                    {{ breed.breed_name }}
+                </option>
+            {% endfor %}
+
+            </select>
+        </div>
+
+        <div>
+            <label for="birth_date">Data urodzenia</label>
+            <input 
+                value="{{ dog.dog_birth_date or '' }}"
+                type="date" 
+                id="birth_date" 
+                name="birth_date"
+            >
+        </div>
+
+        <div>
+            <textarea name="note">{{ dog.dog_note or '' }}</textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Edytuj psa</button>
+    </form>
+
+{% endblock %}
