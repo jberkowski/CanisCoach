@@ -204,17 +204,39 @@ def edit_dog(dog_id):
 def dog(dog_id):
     """Display data about single dog"""
 
+    user_id = session["user_id"]
+
     # Check if this dog belongs to the user
     dog = Dog.query.filter_by(
         dog_id=dog_id,
-        dog_usr_id=session["user_id"]
+        dog_usr_id=user_id
     ).first()
+
+    # Get this dogs workouts
+    workouts = Workout.query.filter_by(
+        wout_dog_id=dog_id
+    )
+
+    disciplines = Discipline.query.all()
+    disc_dict = {d.disc_id: d.disc_name for d in disciplines}
+
+    dogs = Dog.query.filter_by(dog_usr_id=user_id).all()
+    dogs_dict = {d.dog_id: d.dog_name_short for d in dogs}
+
+    status_dict = {0: 'Zaplanowany', 1: 'Zakończony', 2: 'Anulowany'}
 
     if dog is None:
         flash("To nie Twój pies", "error")
         return redirect("/dogs")
 
-    return render_template("dog.html", dog=dog)
+    return render_template(
+        "dog.html",
+        dog=dog,
+        workouts=workouts,
+        disc_dict=disc_dict,
+        dogs_dict=dogs_dict,
+        status_dict=status_dict
+        )
 
 
 @app.route("/dogs/dog/<int:dog_id>/delete", methods=["POST"])
