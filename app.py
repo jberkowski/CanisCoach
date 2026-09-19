@@ -34,7 +34,10 @@ def dogs():
     user_id = session["user_id"]
     user = User.query.filter_by(usr_id=user_id).first()
 
-    user_dogs = Dog.query.filter_by(dog_usr_id=user_id).all()
+    user_dogs = Dog.query.filter_by(
+        dog_usr_id=user_id,
+        dog_active=1
+        ).all()
 
     dog_breeds = Breed.query.all()
     breed_dict = {b.breed_id: b.breed_name for b in dog_breeds}

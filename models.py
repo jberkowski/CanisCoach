@@ -112,7 +112,7 @@ class Workout(db.Model):
     wout_creation_date = db.Column(
         db.DateTime,
         nullable=False,
-        default=datetime.utcnow
+        default=datetime.now()
     )
 
     wout_wgroup_id = db.Column(
@@ -149,7 +149,7 @@ class WorkoutGroup(db.Model):
     wgroup_creation_date = db.Column(
         db.DateTime,
         nullable=False,
-        default=datetime.utcnow
+        default=datetime.now()
     )
 
     user = db.relationship("User", back_populates="workout_groups")
