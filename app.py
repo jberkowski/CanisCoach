@@ -607,17 +607,27 @@ def workout(wout_id):
         flash("To nie Twój trening", "error")
         return redirect("/workouts")
 
-    disciplines = Discipline.query.all()
+    disciplines = Discipline.query.filter(
+        or_(
+            Discipline.disc_type == 0,
+            Discipline.disc_usr_id == user_id
+        ),
+        Discipline.disc_active == 1
+    ).all()
     disc_dict = {d.disc_id: d.disc_name for d in disciplines}
 
     dogs = Dog.query.filter_by(dog_usr_id=user_id).all()
     dogs_dict = {d.dog_id: d.dog_name_short for d in dogs}
 
+    status_dict = {0: 'Zaplanowany', 1: 'Zakończony', 2: 'Anulowany'}
+
     return render_template(
         "workout.html",
         workout=workout,
         disc_dict=disc_dict,
-        dogs_dict=dogs_dict)
+        dogs_dict=dogs_dict,
+        status_dict=status_dict
+        )
 
 
 @app.route("/workouts/workout/<int:wout_id>/cancel", methods=["POST"])

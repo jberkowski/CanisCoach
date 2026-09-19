@@ -7,4 +7,43 @@
 {% block main %}
     <h1>Trening {{ disc_dict[workout.wout_disc_id]}} z
      {{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}</h1>
+
+<div>
+        <table class="workouts-table">
+                <tr>
+                    <th>Czas rozpoczęcia</th>
+                    <th>Czas zakończenia</th>
+                    <th>Czas trwania</th>
+                    <th>Dyscyplina</th>
+                    <th>Psy</th>
+                    <th>Cel</th>
+                    <th>Status</th>
+                    <th>Wynik</th>
+                </tr>
+
+                <tr class="clickable-row" data-href="{{ url_for('workout', wout_id=workout.wout_id) }}">
+                    <td>{{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
+                    <td>{{ workout.wout_end_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
+                    <td>{{ workout.wout_duration_minutes }}</td>
+                    <td>{{ disc_dict[workout.wout_disc_id] }}</td>
+                    <td>{{ dogs_dict[workout.wout_dog_id] }}</td>
+                    <td>{{ workout.wout_focus }}</td>
+                    <td>{{ status_dict[workout.wout_status] }}</td>
+                    <td>
+                        {% if workout.wout_score %}
+                            {{ workout.wout_score }}
+                        {% endif %}
+                    </td>
+                </tr>
+        </table>
+    </div>
+
+    <script>
+        document.querySelectorAll(".clickable-row").forEach(row => {
+            row.addEventListener("click", () => {
+                window.location.href = row.dataset.href;
+            });
+        });
+    </script>
+
 {% endblock %}
