@@ -12,8 +12,8 @@
     <h2>{{ dog.dog_name_short }}</h2>
 {% endif %}
 
-<h4>Data urodzenia {{ dog.dog_birth_date }}</h4>
-<p>{{ dog.dog_note }}</p>
+<h4>Data urodzenia {{ dog.dog_birth_date or '' }}</h4>
+<p>{{ dog.dog_note or ''}}</p>
 
 Ostatnie treningi:
 
@@ -38,7 +38,7 @@ Ostatnie treningi:
                     <td>{{ workout.wout_duration_minutes }}</td>
                     <td>{{ disc_dict[workout.wout_disc_id] }}</td>
                     <td>{{ dogs_dict[workout.wout_dog_id] }}</td>
-                    <td>{{ workout.wout_focus }}</td>
+                    <td>{{ workout.wout_focus or '' }}</td>
                     <td>{{ status_dict[workout.wout_status] }}</td>
                     <td>
                         {% if workout.wout_score %}

@@ -7,7 +7,7 @@ class User(db.Model):
     usr_id = db.Column(db.Integer, primary_key=True)
     usr_email = db.Column(db.String(255), unique=True, nullable=False)
     usr_password_hash = db.Column(db.String(255), nullable=False)
-    usr_join_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    usr_join_date = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     dogs = db.relationship("Dog", back_populates="user")
     disciplines = db.relationship("Discipline", back_populates="user")
@@ -112,7 +112,7 @@ class Workout(db.Model):
     wout_creation_date = db.Column(
         db.DateTime,
         nullable=False,
-        default=datetime.now()
+        default=datetime.now
     )
 
     wout_wgroup_id = db.Column(
@@ -149,7 +149,7 @@ class WorkoutGroup(db.Model):
     wgroup_creation_date = db.Column(
         db.DateTime,
         nullable=False,
-        default=datetime.now()
+        default=datetime.now
     )
 
     user = db.relationship("User", back_populates="workout_groups")
