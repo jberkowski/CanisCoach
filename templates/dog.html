@@ -109,13 +109,4 @@ Ostatnie treningi:
         </table>
     </div>
 
-    <script>
-        document.querySelectorAll(".clickable-row").forEach(row => {
-            row.addEventListener("click", () => {
-                event.stopPropagation();
-                window.location.href = row.dataset.href;
-            });
-        });
-    </script>
-
 {% endblock %}
