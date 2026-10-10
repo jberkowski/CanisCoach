@@ -38,13 +38,14 @@
                                     action="{{ url_for('delete_dog', dog_id=dog.dog_id) }}"
                                     method="post"
                                     class="inline-form action-button"
+                                    data-irreversible="true"
                                 >
                                     <button
                                         type="submit"
                                         class="icon-button"
                                         title="Usuń psa"
                                     >
-                                        <i class="bi bi-x"></i>
+                                        <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
                         </div>
