@@ -86,7 +86,7 @@ def add_dog():
                 breed = Breed.query.filter_by(breed_id=breed_id).first()
                 if breed is None:
                     flash("Selected breed does not exist", "error")
-                    return redirect("/workouts/add")
+                    return redirect("/dogs/add")
             except ValueError:
                 flash("Nieprawidłowa rasa", "error")
                 return redirect("/dogs/add")
