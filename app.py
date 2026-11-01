@@ -209,7 +209,8 @@ def dog(dog_id):
     # Check if this dog belongs to the user
     dog = Dog.query.filter_by(
         dog_id=dog_id,
-        dog_usr_id=user_id
+        dog_usr_id=user_id,
+        dog_active=1
     ).first()
 
     # Get this dogs workouts
@@ -226,7 +227,7 @@ def dog(dog_id):
     status_dict = {0: 'Zaplanowany', 1: 'Zakończony', 2: 'Anulowany'}
 
     if dog is None:
-        flash("To nie Twój pies", "error")
+        flash("This is not an active dog owned by you.", "error")
         return redirect("/dogs")
 
     return render_template(
