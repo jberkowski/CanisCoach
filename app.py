@@ -601,7 +601,8 @@ def workout(wout_id):
     # Check if this workout belongs to the user
     workout = Workout.query.filter_by(
         wout_id=wout_id,
-        wout_usr_id=user_id
+        wout_usr_id=user_id,
+        wout_active=1
     ).first()
 
     if workout is None:
