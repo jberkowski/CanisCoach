@@ -219,7 +219,8 @@ def dog(dog_id):
 
     # Get this dogs workouts
     workouts = Workout.query.filter_by(
-        wout_dog_id=dog_id
+        wout_dog_id=dog_id,
+        wout_active=1
     )
 
     disciplines = Discipline.query.all()

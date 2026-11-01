@@ -31,81 +31,79 @@ Ostatnie treningi:
                     <th>Opcje</th>
                 </tr>
         {% for workout in workouts %}
-            {% if workout.wout_active %}
-                <tr class="clickable-row" data-href="{{ url_for('workout', wout_id=workout.wout_id) }}">
-                    <td>{{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
-                    <td>{{ workout.wout_end_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
-                    <td>{{ workout.wout_duration_minutes }}</td>
-                    <td>{{ disc_dict[workout.wout_disc_id] }}</td>
-                    <td>{{ dogs_dict[workout.wout_dog_id] }}</td>
-                    <td>{{ workout.wout_focus or '' }}</td>
-                    <td>{{ status_dict[workout.wout_status] }}</td>
-                    <td>
-                        {% if workout.wout_score %}
-                            {{ workout.wout_score }}
-                        {% endif %}
-                    </td>
-                    <td>
-                        <div class="workout-actions">
+            <tr class="clickable-row" data-href="{{ url_for('workout', wout_id=workout.wout_id) }}">
+                <td>{{ workout.wout_start_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>{{ workout.wout_end_datetime.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>{{ workout.wout_duration_minutes }}</td>
+                <td>{{ disc_dict[workout.wout_disc_id] }}</td>
+                <td>{{ dogs_dict[workout.wout_dog_id] }}</td>
+                <td>{{ workout.wout_focus or '' }}</td>
+                <td>{{ status_dict[workout.wout_status] }}</td>
+                <td>
+                    {% if workout.wout_score %}
+                        {{ workout.wout_score }}
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="workout-actions">
 
-                            <a
-                                href="{{ url_for('edit_workout', wout_id=workout.wout_id) }}"
-                                class="icon-button action-button"
-                                title="Edytuj"
-                            >
-                                <i class="bi bi-pencil"></i>
-                            </a>
+                        <a
+                            href="{{ url_for('edit_workout', wout_id=workout.wout_id) }}"
+                            class="icon-button action-button"
+                            title="Edytuj"
+                        >
+                            <i class="bi bi-pencil"></i>
+                        </a>
 
-                            {% if workout.wout_status == 0 %}
-                                <form
-                                    action="{{ url_for('complete_workout', wout_id=workout.wout_id) }}"
-                                    method="post"
-                                    class="inline-form action-button"
-                                >
-                                    <button
-                                        type="submit"
-                                        class="icon-button"
-                                        title="Ukończ trening"
-                                    >
-                                        <i class="bi bi-check-lg"></i>
-                                    </button>
-                                </form>
-                            {% endif %}
-
-                            {% if workout.wout_status == 0 %}
-                                <form
-                                    action="{{ url_for('cancel_workout', wout_id=workout.wout_id) }}"
-                                    method="post"
-                                    class="inline-form action-button"
-                                >
-                                    <button
-                                        type="submit"
-                                        class="icon-button"
-                                        title="Anuluj trening"
-                                    >
-                                        <i class="bi bi-x"></i>
-                                    </button>
-                                </form>
-                            {% endif %}
-
+                        {% if workout.wout_status == 0 %}
                             <form
-                                    action="{{ url_for('delete_workout', wout_id=workout.wout_id) }}"
-                                    method="post"
-                                    class="inline-form action-button"
-                                    data-irreversible="true"
+                                action="{{ url_for('complete_workout', wout_id=workout.wout_id) }}"
+                                method="post"
+                                class="inline-form action-button"
+                            >
+                                <button
+                                    type="submit"
+                                    class="icon-button"
+                                    title="Ukończ trening"
                                 >
-                                    <button
-                                        type="submit"
-                                        class="icon-button"
-                                        title="Usuń trening"
-                                    >
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                        </div>
-                    </td>
-                </tr>
-            {% endif %}
+                                    <i class="bi bi-check-lg"></i>
+                                </button>
+                            </form>
+                        {% endif %}
+
+                        {% if workout.wout_status == 0 %}
+                            <form
+                                action="{{ url_for('cancel_workout', wout_id=workout.wout_id) }}"
+                                method="post"
+                                class="inline-form action-button"
+                            >
+                                <button
+                                    type="submit"
+                                    class="icon-button"
+                                    title="Anuluj trening"
+                                >
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </form>
+                        {% endif %}
+
+                        <form
+                                action="{{ url_for('delete_workout', wout_id=workout.wout_id) }}"
+                                method="post"
+                                class="inline-form action-button"
+                                data-irreversible="true"
+                            >
+                                <button
+                                    type="submit"
+                                    class="icon-button"
+                                    title="Usuń trening"
+                                >
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                    </div>
+                </td>
+            </tr>
         {% endfor %}
         </table>
     </div>
