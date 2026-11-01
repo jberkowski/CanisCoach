@@ -213,6 +213,10 @@ def dog(dog_id):
         dog_active=1
     ).first()
 
+    if dog is None:
+        flash("This is not an active dog owned by you.", "error")
+        return redirect("/dogs")
+
     # Get this dogs workouts
     workouts = Workout.query.filter_by(
         wout_dog_id=dog_id
@@ -225,10 +229,6 @@ def dog(dog_id):
     dogs_dict = {d.dog_id: d.dog_name_short for d in dogs}
 
     status_dict = {0: 'Zaplanowany', 1: 'Zakończony', 2: 'Anulowany'}
-
-    if dog is None:
-        flash("This is not an active dog owned by you.", "error")
-        return redirect("/dogs")
 
     return render_template(
         "dog.html",
