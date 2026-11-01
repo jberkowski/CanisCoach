@@ -464,67 +464,67 @@ def add_workout():
         user_id = session["user_id"]
 
         if not start_raw:
-            flash("Podaj datę rozpoczęcia treningu.")
+            flash("Podaj datę rozpoczęcia treningu.", "error")
             return redirect("/workouts/add")
 
         if not duration_raw:
-            flash("Podaj czas trwania treningu.")
+            flash("Podaj czas trwania treningu.", "error")
             return redirect("/workouts/add")
 
         if not disc_id_raw:
-            flash("Wybierz dyscyplinę.")
+            flash("Wybierz dyscyplinę.", "error")
             return redirect("/workouts/add")
 
         if not dog_ids_raw:
-            flash("Wybierz co najmniej jednego psa.")
+            flash("Wybierz co najmniej jednego psa.", "error")
             return redirect("/workouts/add")
 
         try:
             status = int(status)
         except (ValueError, TypeError):
-            flash("Nieprawidłowy status.")
+            flash("Nieprawidłowy status.", "error")
             return redirect("/workouts/add")
 
         if status not in (0, 1, 2):
-            flash("Wybierz status treningu.")
+            flash("Wybierz status treningu.", "error")
             return redirect("/workouts/add")
 
         try:
             start_datetime = datetime.fromisoformat(start_raw)
         except ValueError:
-            flash("Nieprawidłowy format daty rozpoczęcia.")
+            flash("Nieprawidłowy format daty rozpoczęcia.", "error")
             return redirect("/workouts/add")
 
         try:
             duration_minutes = int(duration_raw)
         except ValueError:
-            flash("Czas trwania musi być liczbą.")
+            flash("Czas trwania musi być liczbą.", "error")
             return redirect("/workouts/add")
 
         if duration_minutes <= 0:
-            flash("Czas trwania musi być większy od zera.")
+            flash("Czas trwania musi być większy od zera.", "error")
             return redirect("/workouts/add")
 
         try:
             disc_id = int(disc_id_raw)
             dog_ids = [int(dog_id) for dog_id in dog_ids_raw]
         except ValueError:
-            flash("Nieprawidłowe dane formularza.")
+            flash("Nieprawidłowe dane formularza.", "error")
             return redirect("/workouts/add")
         
         # Validate ownership for discipline and dog
         discipline = Discipline.query.filter_by(disc_id=disc_id).first()
 
         if discipline is None:
-            flash("Wybrana dyscyplina nie istnieje.")
+            flash("Wybrana dyscyplina nie istnieje.", "error")
             return redirect("/workouts/add")
         
         if discipline.disc_active != 1:
-            flash("Wybrana dyscyplina jest nieaktywna.")
+            flash("Wybrana dyscyplina jest nieaktywna.", "error")
             return redirect("/workouts/add")
 
         if discipline.disc_type == 1 and discipline.disc_usr_id != user_id:
-            flash("Nie masz dostępu do tej dyscypliny.")
+            flash("Nie masz dostępu do tej dyscypliny.", "error")
             return redirect("/workouts/add")
 
         # Remove duplicate dog IDs
@@ -541,7 +541,8 @@ def add_workout():
         if len(dogs_data) != len(dog_ids):
             flash(
                 "Co najmniej jeden z wybranych psów nie istnieje, "
-                "jest nieaktywny lub nie należy do Ciebie."
+                "jest nieaktywny lub nie należy do Ciebie.",
+                "error"
             )
             return redirect("/workouts/add")
 
@@ -750,66 +751,66 @@ def edit_workout(wout_id):
         user_id = session["user_id"]
 
         if not start_raw:
-            flash("Podaj datę rozpoczęcia treningu.")
+            flash("Podaj datę rozpoczęcia treningu.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         if not duration_raw:
-            flash("Podaj czas trwania treningu.")
+            flash("Podaj czas trwania treningu.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         if not disc_id_raw:
-            flash("Wybierz dyscyplinę.")
+            flash("Wybierz dyscyplinę.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         if not status:
-            flash("Wybierz status treningu.")
+            flash("Wybierz status treningu.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
         
         try:
             status = int(status)
         except (ValueError, TypeError):
-            flash("Nieprawidłowy status.")
+            flash("Nieprawidłowy status.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         if status not in (0, 1, 2):
-            flash("Wybierz status treningu.")
+            flash("Wybierz status treningu.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         try:
             start_datetime = datetime.fromisoformat(start_raw)
         except ValueError:
-            flash("Nieprawidłowy format daty rozpoczęcia.")
+            flash("Nieprawidłowy format daty rozpoczęcia.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         try:
             duration_minutes = int(duration_raw)
         except ValueError:
-            flash("Czas trwania musi być liczbą.")
+            flash("Czas trwania musi być liczbą.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         if duration_minutes <= 0:
-            flash("Czas trwania musi być większy od zera.")
+            flash("Czas trwania musi być większy od zera.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         try:
             disc_id = int(disc_id_raw)
         except ValueError:
-            flash("Nieprawidłowa dyscyplina.")
+            flash("Nieprawidłowa dyscyplina.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
         
         # Validate ownership for discipline and dog
         discipline = Discipline.query.filter_by(disc_id=disc_id).first()
 
         if discipline is None:
-            flash("Wybrana dyscyplina nie istnieje.")
+            flash("Wybrana dyscyplina nie istnieje.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
         
         if discipline.disc_active != 1:
-            flash("Wybrana dyscyplina jest nieaktywna.")
+            flash("Wybrana dyscyplina jest nieaktywna.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         if discipline.disc_type == 1 and discipline.disc_usr_id != user_id:
-            flash("Nie masz dostępu do tej dyscypliny.")
+            flash("Nie masz dostępu do tej dyscypliny.", "error")
             return redirect(url_for("edit_workout", wout_id=wout_id))
 
         end_datetime = start_datetime + timedelta(minutes=duration_minutes)
