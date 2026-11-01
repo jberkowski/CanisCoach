@@ -4,7 +4,8 @@ from flask import Flask, redirect, render_template, request, flash, session, url
 from helpers import login_required
 from models import User, Dog, Discipline, Workout, WorkoutGroup, Breed
 import os
-from sqlalchemy import or_
+from sqlalchemy import event, or_
+from sqlalchemy.engine import Engine
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # Configure application
@@ -13,6 +14,14 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cc.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
+
+# --- Enable Foreign Key support for SQLite ---
+@event.listens_for(Engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
+
 # initialize the app with the extension
 # migrate models into db
 db.init_app(app)
