@@ -178,7 +178,6 @@ def edit_dog(dog_id):
         # Update dog
         dog.dog_name_full=name_full
         dog.dog_name_short=name_short
-        dog.dog_usr_id=user_id
         dog.dog_breed_id=breed_id
         dog.dog_birth_date=birth_date
         dog.dog_note=note
