@@ -173,7 +173,7 @@ def edit_dog(dog_id):
                 breed = Breed.query.filter_by(breed_id=breed_id).first()
                 if breed is None:
                     flash("Selected breed does not exist", "error")
-                    return redirect("/workouts/add")
+                    return redirect(url_for("edit_dog", dog_id=dog_id))
             except ValueError:
                 flash("Nieprawidłowa rasa", "error")
                 return redirect(url_for("edit_dog", dog_id=dog_id))
