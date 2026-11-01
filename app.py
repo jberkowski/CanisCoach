@@ -640,7 +640,8 @@ def cancel_workout(wout_id):
     workout = Workout.query.filter_by(
         wout_id=wout_id,
         wout_usr_id=user_id,
-        wout_active=1
+        wout_active=1,
+        wout_status=0
     ).first()
 
     if workout is None:
@@ -663,7 +664,8 @@ def complete_workout(wout_id):
     workout = Workout.query.filter_by(
         wout_id=wout_id,
         wout_usr_id=user_id,
-        wout_active=1
+        wout_active=1,
+        wout_status=0
     ).first()
 
     if workout is None:
