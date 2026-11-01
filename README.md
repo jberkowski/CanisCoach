@@ -20,7 +20,7 @@ User is a person (human), usually a dog owner or dedicated trainer. Each user ha
 Each account can create multiple dog profiles linked to this handler account.
 
 
-## MVP functions:
+## MVP functions
 
     - User can register their account, login, logout
     - One user's data is not visible to another users
@@ -39,7 +39,8 @@ Each account can create multiple dog profiles linked to this handler account.
     - User can review history of their past workouts
 
 
-## Main database tables:
+## Main database tables
+
     - users (info about user, like id, user email, password hash, creation date)
     - dogs (info about dog, like id, owner id, breed, birth date)
     - disciplines (list of discilines, can be default/public or private)
@@ -48,7 +49,7 @@ Each account can create multiple dog profiles linked to this handler account.
     - workout_groups (helps create multiple workouts for many dogs from one workout form)
     - breeds (list of dog breeds)
 
-## Business rules:
+## Business rules
 
     - each user can see only their own data
     - each dog belongs to one user
@@ -61,6 +62,27 @@ Each account can create multiple dog profiles linked to this handler account.
     - completed workouts may have score and/or note
     - cancelled workouts are not counted as completed workouts in statistics
     - workout duration is calculated from start and end time, but can be manually adjusted
+
+## Runbook
+
+In order to run your very own instance of this application, please do the following:
+
+In the folder containing the main project files run commands:
+- pip install -r requirements.txt
+- flask db upgrade
+- flask run
+
+Instance will be available at indicated http address. Database will be seed with data necessary for 
+proper usage. In order to login, you will have to register your own account using provided web form.
+
+## Design choices
+
+Most of the design choices are based on my experience as Business Analyst in IT company.
+
+### Soft delete
+
+Some of the objects (e.g. single dogs) can be deleted at any point in time. This means that
+a dog can have some workouts assigned ine the past. Soft delete approach ensures that this link will not be broken. Instead of removing dog from database, "active" flag is set to 0.
 
 ## Files structure
 
@@ -95,7 +117,7 @@ Templates folder holds all .html files that will be filed with data and create m
 Migrations folder and first migration file has been created by Flask-Migrate.
 Second and third migrations have been created by me to seed breeds and disciplines tables.
 
-## Next steps:
+## Next steps
 
     - User can view basic statistics, including:
         - number of workouts per dog/discipline
