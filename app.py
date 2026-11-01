@@ -96,7 +96,7 @@ def add_dog():
             birth_date = None
         else:
             try:
-                birth_date = datetime.strptime(birth_date, "%Y-%m-%d")
+                birth_date = date.strptime(birth_date, "%Y-%m-%d")
             except ValueError:
                 flash("Niepoprawna data", "error")
                 return redirect("/dogs/add")
@@ -183,7 +183,7 @@ def edit_dog(dog_id):
             birth_date = None
         else:
             try:
-                birth_date = datetime.strptime(birth_date, "%Y-%m-%d")
+                birth_date = date.strptime(birth_date, "%Y-%m-%d")
             except ValueError:
                 flash("Niepoprawna data", "error")
                 return redirect(url_for("edit_dog", dog_id=dog_id))
