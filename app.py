@@ -663,7 +663,7 @@ def cancel_workout(wout_id):
     ).first()
 
     if workout is None:
-        flash("Incorrect workout.", "error")
+        flash("Incorrect or inactive workout.", "error")
         return redirect("/workouts")
     
     workout.wout_status = 2
@@ -687,7 +687,7 @@ def complete_workout(wout_id):
     ).first()
 
     if workout is None:
-        flash("Incorrect workout.", "error")
+        flash("Incorrect or inactive workout.", "error")
         return redirect("/workouts")
     
     workout.wout_status = 1
