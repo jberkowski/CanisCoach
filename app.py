@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from extensions import db, migrate
 from flask import Flask, redirect, render_template, request, flash, session, url_for
 from helpers import login_required
@@ -96,7 +96,7 @@ def add_dog():
             birth_date = None
         else:
             try:
-                birth_date = datetime.date.strptime(birth_date, "%Y-%m-%d")
+                birth_date = datetime.strptime(birth_date, "%Y-%m-%d").date()
             except ValueError:
                 flash("Niepoprawna data", "error")
                 return redirect("/dogs/add")
@@ -183,7 +183,7 @@ def edit_dog(dog_id):
             birth_date = None
         else:
             try:
-                birth_date = datetime.date.strptime(birth_date, "%Y-%m-%d")
+                birth_date = datetime.strptime(birth_date, "%Y-%m-%d").date()
             except ValueError:
                 flash("Niepoprawna data", "error")
                 return redirect(url_for("edit_dog", dog_id=dog_id))
