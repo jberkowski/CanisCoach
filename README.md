@@ -1,4 +1,6 @@
-# CanisCoach
+# YOUR PROJECT TITLE
+#### Video Demo:  <URL HERE>
+#### Description:
 
 Web application created for dog owners and trainers. Its essence is to help effectively
 schedule workouts with dogs and keep track of their results.
