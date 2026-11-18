@@ -14,8 +14,7 @@ disciplines. Keeping track of primary/secondary/supplemental trainings is a tedi
 The Solution:
 
 CanisCoach makes it all easier, giving user one-stop solution to schedule future workouts
-and review the past ones. The rich statistical database helps keep track of the most important KPIs
-history.
+and review the past ones.
 
 The user:
 User is a person (human), usually a dog owner or dedicated trainer. Each user has separate account.
@@ -63,7 +62,7 @@ Each account can create multiple dog profiles linked to this handler account.
     - planned workouts do not require score
     - completed workouts may have score and/or note
     - cancelled workouts are not counted as completed workouts in statistics
-    - workout end time is calculated from start and duration, but can be manually adjusted
+    - workout end time is calculated from start and duration
 
 ## Runbook
 
