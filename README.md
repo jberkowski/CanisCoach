@@ -71,6 +71,7 @@ In order to run your very own instance of this application, please do the follow
 
 In the folder containing the main project files run commands:
 - pip install -r requirements.txt
+- create .env file - see .env.example, generate key, paste and rename
 - flask db upgrade
 - flask run
 
