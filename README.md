@@ -99,7 +99,7 @@ one group is responsible for functions regarding dogs (presentation, edition, in
 
 ### models.py
 
-Describes models used in project database.
+Describes models used in project database. Serves as concise documentation for data types in database. 
 
 ### extensions.py
 
@@ -116,12 +116,47 @@ Templates folder holds all .html files that will be filled with data and create 
 
 ### migrations/
 
-Migrations folder and first migration file has been created by Flask-Migrate.
-Second and third migrations have been created by me to seed breeds and disciplines tables.
+Migrations folder contains files that create database structure and fill table that create dictionaries, i.e. Breeds and Disciplines.
+
+Seeds are located here instead of app.py, so:
+    - each seed occurs only once in db instance, not every time it restarts
+    - can be rolled back using "downgrade" method
+    - one command prepares entire database
 
 ### static/
 
 Static folder contains styles.css file and javascripts.
+
+#### static/clickable_row_handler.js
+
+Adds event listener for action: click on a clickable row. "closest("a, form")" ensures that click will not bubble to inside elements (e.g. clickable icons in a row).
+
+#### static/confirm_action_handler.js
+
+Adds event listener for submitting forms. If submitting form is classified as irreversible action, it pops up a caonfirmation window.
+
+#### styles.css
+
+Adds some minor changes to Bootstrap page look:
+    - page layout
+    - text area size
+    - table layout
+    - clickable rows highlight
+    - calendar layout
+    - clickable buttons in tables layout
+
+### requirements.txt
+
+List of libraries used for preparation of virtual environment (see Runbook section).
+
+### .env.example
+
+Used to prepare .env file, which should contain unique secret key. Secret key is required to maintain security and integrity of communication between browser and service. Usage:
+    - create secret key using the command from .env.example
+    - paste generated key into .env.example
+    - rename it to .env
+
+Original .env file is not in the repository to keep my own secret a secret.
 
 ## Next steps
 
